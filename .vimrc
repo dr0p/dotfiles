@@ -30,6 +30,7 @@ Bundle 'nanotech/jellybeans.vim'
 Bundle 'ervandew/screen'
 Bundle 'hallettj/jslint.vim'
 Bundle 'walm/jshint.vim'
+Bundle 'chriskempson/base16-vim'
 
 syntax on                 " Enable syntax highlighting
 filetype plugin indent on " Enable filetype-specific indenting and plugins
@@ -38,7 +39,8 @@ augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
   " autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,eruby,yaml,coffee,less,python,php,html,js,css.scss set ai sw=2 sts=2 et
+  autocmd FileType ruby,eruby,yaml,coffee,less,python,php,html,javascript,css.sass set ai sw=2 sts=2 et
+  autocmd FileType javascript set ai sw=4 sts=4 et
 augroup END
 
 autocmd FileType rb,js,scss,css autocmd BufWritePre <buffer> call StripTrailingWhitespace()
@@ -75,6 +77,7 @@ let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_haml_checkers = ['haml_lint']
 let g:syntastic_js_checkers = ['jslint', 'jshint']
+let g:syntastic_scss_checkers = ['scss_lint']
 
 map <Leader>t :NERDTreeToggle<CR>
 map <Leader>T :NERDTreeFind<CR>
@@ -126,8 +129,7 @@ function! Preserve(command)
   let c = col(".")
   " do the business:
   execute a:command
-  " clean up: restore previous search history, and
-  cursor position
+  " clean up: restore previous search history, and cursor position
   let @/=_s
   call cursor(l, c)
 endfunction
@@ -143,8 +145,6 @@ if has("persistent_undo")
 "   closed
 	set undofile
 endif
-
-
 
 " Screen settings
 let g:ScreenImpl = 'Tmux'
